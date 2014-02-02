@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
-from command.command_mixin import CommandMixin
-from command.error import ParamNotFound, RequiredNotFound
+from doom.command import CommandMixin
+from doom.error import ParamNotFound, RequiredNotFound
 from tests.base_test import BaseTest
 
 
@@ -51,3 +51,4 @@ class TestRequiredValidator(BaseTest):
     def test_all_requred(self):
         obj = type('obj', (object,), {'model1': 0, 'model2': False})
         self.eq(self.command.validate_required(obj), None)
+        self.eq(self.command.validate({}, obj), None)
