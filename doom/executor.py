@@ -15,17 +15,20 @@ class Executor(object):
     def get_command(self, msg):
         return self.mapper.get(msg.get('command'))
 
-    def error(self, exception):
+    def error(self, command, exception):
+        """
+        Template method for customization errors
+        """
         return str(exception)
 
     def try_execute(self, command):
         try:
             return command()
         except CommandError as exception:
-            return self.error(exception)
+            return self.error(command, exception)
         except:
             self.logger.unexpected_exception(command)
-            return self.error(self.unexpected_exception)
+            return self.error(command, self.unexpected_exception)
 
     def exec_command(self, command_cls, msg):
         command = command_cls(msg)
