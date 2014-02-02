@@ -1,14 +1,14 @@
 # -*- coding: utf8 -*-
-from doom.command import CommandMixin
+from doom.cmd.validator import CmdValidatorMixin
 from doom.error import ParamNotFound, RequiredNotFound
 from tests.base_test import BaseTest
 
 
-class ParamCommand(CommandMixin):
+class ParamCommand(CmdValidatorMixin):
     params = 'one', 'two'
 
 
-class RequiredCommand(CommandMixin):
+class RequiredCommand(CmdValidatorMixin):
     requires = 'model1', 'model2'
 
 
@@ -48,7 +48,3 @@ class TestRequiredValidator(BaseTest):
             self.command.validate_required, obj
         )
 
-    def test_all_requred(self):
-        obj = type('obj', (object,), {'model1': 0, 'model2': False})
-        self.eq(self.command.validate_required(obj), None)
-        self.eq(self.command.validate({}, obj), None)

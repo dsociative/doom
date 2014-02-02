@@ -2,7 +2,7 @@
 from doom.error import ParamNotFound, RequiredNotFound
 
 
-class Command(object):
+class CmdValidatorMixin(object):
     params = tuple()
     requires = tuple()
 

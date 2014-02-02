@@ -1,6 +1,11 @@
 # -*- coding: utf8 -*-
 
 
+class UnexpectedException(Exception):
+    def __str__(self):
+        return 'unexpected error'
+
+
 class CommandError(Exception):
     pass
 
