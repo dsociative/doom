@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name='command',
+    name='doom',
     author='dsociative',
     author_email='admin@geektech.ru',
     packages=find_packages(),
