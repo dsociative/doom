@@ -20,6 +20,7 @@ class ChannelWorker(object):
     def run(self):
         self.init_socket()
         self.on_exit()
+        self.prepare()
 
         self.running = True
         while self.running:
@@ -30,3 +31,8 @@ class ChannelWorker(object):
 
     def on_exit(self):
         signal.signal(signal.SIGTERM, self.exit)
+
+    def prepare(self):
+        """
+        Template Method
+        """
