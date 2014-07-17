@@ -19,7 +19,8 @@ setup(
         'ztest',
         'class_collector',
         'jinja2',
-        'socket_server2'
+        'socket_server2',
+        'pyzmq'
     ],
     package_data={'doom': ['template/*.rst']},
     version='0.0.1'
