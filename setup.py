@@ -23,6 +23,6 @@ setup(
         'pyzmq'
     ],
     package_data={'doom': ['template/*.rst']},
-    version='0.0.2'
+    version='0.0.3'
 )
 

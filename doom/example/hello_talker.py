@@ -3,12 +3,11 @@ from multiprocessing import Process
 from socket_server.client.base_client import BaseClient
 
 
-
 class HelloTalkerProcess(Process):
-
     def __init__(self):
         super(HelloTalkerProcess, self).__init__()
         from socket_server.base.talker import Talker
+
         self.talker = Talker(client_cls=HelloTestClient)
 
     def run(self):

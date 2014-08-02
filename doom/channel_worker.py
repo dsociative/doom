@@ -1,5 +1,4 @@
 # -*- coding: utf8 -*-
-import atexit
 import zmq
 import signal
 
