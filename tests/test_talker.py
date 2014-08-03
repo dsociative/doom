@@ -4,14 +4,7 @@ from socket_server.util.sender import Sender
 from doom.example.hello_talker import HelloTalkerProcess
 from tests.base_test import BaseTest
 from unittest2 import skipIf
-
-
-def no_epoll(*args):
-    try:
-        from select import EPOLLIN
-        return False
-    except ImportError:
-        return True
+from tests.utils import no_epoll
 
 
 @skipIf(no_epoll(), "can't import epoll on you os")
