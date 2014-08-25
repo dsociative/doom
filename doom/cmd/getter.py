@@ -39,28 +39,28 @@ class GetterStore(type):
 class GetterHandler(object):
     __metaclass__ = GetterStore
 
-    def __execute_getter(self, getter):
+    def _execute(self, getter):
         return getter(*self._get_requirements(getter.requirements))
 
-    def _do_get(self, name, getter):
-        value = self.__execute_getter(getter)
+    def _execute_and_set(self, name, getter):
+        value = self._execute(getter)
         setattr(self, name, value)
         return value
 
-    def _get_or_do(self, name):
+    def _get_or_set(self, name):
         req = getattr(self, name, None)
         if req:
             return req
         else:
-            return self._do_get(name, self._getters[name])
+            return self._execute_and_set(name, self._getters[name])
 
     def __init__(self, *args, **kwargs):
         super(GetterHandler, self).__init__(*args, **kwargs)
         for name in self._getters:
-            self._get_or_do(name)
+            self._get_or_set(name)
 
     def _get_requirements(self, requirements):
         yield self
 
         for name in requirements:
-            yield self._get_or_do(name)
+            yield self._get_or_set(name)
