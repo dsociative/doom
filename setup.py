@@ -13,14 +13,18 @@ setup(
         "http://github.com/dsociative/class_collector/tarball/master#egg"
         "=class_collector",
         "http://github.com/dsociative/socket_server2/tarball/staging#egg"
-        "=socket_server2"
+        "=socket_server2",
+        "http://github.com/dsociative/rmodel/tarball/staging#egg=rmodel"
     ],
     install_requires=[
         'ztest',
         'class_collector',
         'jinja2',
         'socket_server2',
-        'pyzmq'
+        'rmodel',
+        'pyzmq',
+        'pytest',
+        'mock'
     ],
     package_data={'doom': ['template/*.rst']},
     version='0.0.3'
