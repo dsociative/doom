@@ -4,13 +4,15 @@ import signal
 
 
 class ChannelWorker(object):
+    SOCKET_TYPE = zmq.PULL
+
     def __init__(self, channel):
         self.channel = channel
         self.running = False
 
     def init_socket(self):
         self.context = zmq.Context(1)
-        self.socket = self.context.socket(zmq.PULL)
+        self.socket = self.context.socket(self.SOCKET_TYPE)
         self.socket.bind(self.channel)
 
     def process(self, message):
