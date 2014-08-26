@@ -31,6 +31,7 @@ class Executor(object):
             return self.error(command, self.unexpected_exception)
 
     def exec_command(self, command_cls, msg):
+
         command = command_cls(msg)
         self.logger.request(command, msg)
         responses = self.try_execute(command)
@@ -38,5 +39,12 @@ class Executor(object):
         self.logger.responses(command, responses)
         return responses
 
+    def command_not_found(self, msg):
+        return 'command not found'
+
     def __call__(self, msg):
-        return self.exec_command(self.get_command(msg), msg)
+        command_cls = self.get_command(msg)
+        if command_cls is None:
+            return self.command_not_found(msg)
+        else:
+            return self.exec_command(command_cls, msg)

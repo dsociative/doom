@@ -1,4 +1,6 @@
 # -*- coding: utf8 -*-
+import inspect
+
 
 NOT_INIT = object()
 
@@ -6,7 +8,7 @@ NOT_INIT = object()
 class getter(object):
     def __init__(self, func):
         self.func = func
-        self.requirements = func.func_code.co_varnames[1:]
+        self.requirements = inspect.getargspec(func)[0][1:]
         self.value = NOT_INIT
 
     def __call__(self, *args, **kwargs):
