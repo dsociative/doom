@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 from abc import ABCMeta, abstractmethod
+import os
 
 
 class General(object):
@@ -21,3 +22,6 @@ class General(object):
     @abstractmethod
     def init_executor(self):
         pass
+
+    def path(self):
+        return os.path.dirname(__file__)

@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 from doom.executor import Executor
 from doom.general import General
+import os
 import pytest
 from redis import Redis
 from rmodel.fields.rfield import rfield
@@ -37,3 +38,7 @@ def test_redis(general):
 
 def test_check_value(general):
     assert general.root.field.get() is None
+
+
+def test_path(general):
+    assert general.path() == os.path.dirname(__file__)
