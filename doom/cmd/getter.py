@@ -41,13 +41,9 @@ class GetterStore(type):
 class GetterHandler(object):
     __metaclass__ = GetterStore
 
-    def _execute(self, getter):
-        return getter(*self._get_requirements(getter.requirements))
-
-    def _execute_and_set(self, name, getter):
-        value = self._execute(getter)
-        setattr(self, name, value)
-        return value
+    def _get_all(self):
+        for name in self._getters:
+            self._get_or_set(name)
 
     def _get_or_set(self, name):
         req = getattr(self, name, None)
@@ -56,10 +52,13 @@ class GetterHandler(object):
         else:
             return self._execute_and_set(name, self._getters[name])
 
-    def __init__(self, *args, **kwargs):
-        super(GetterHandler, self).__init__(*args, **kwargs)
-        for name in self._getters:
-            self._get_or_set(name)
+    def _execute_and_set(self, name, getter):
+        value = self._execute(getter)
+        setattr(self, name, value)
+        return value
+
+    def _execute(self, getter):
+        return getter(*self._get_requirements(getter.requirements))
 
     def _get_requirements(self, requirements):
         yield self

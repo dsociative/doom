@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 from doom.cmd.getter import GetterStore, getter, GetterHandler
+import pytest
 
 
 class MockClass(object):
@@ -23,17 +24,7 @@ def test_getter_decorator():
 
 def test_getter_decorator_parse_requirements():
     g = getter(lambda self, user, player: 1)
-    assert g.requirements == ('user', 'player')
-
-
-class MockCommand(MockClass, GetterHandler):
-    @getter
-    def some_none(self):
-        return None
-
-    @getter
-    def digit(self):
-        return 1
+    assert g.requirements == ['user', 'player']
 
 
 def test_getter_requirements():
@@ -43,10 +34,38 @@ def test_getter_requirements():
     assert list(h._get_requirements(('player',))) == [h, {'player': '1'}]
 
 
+class MockCommand(MockClass, GetterHandler):
+    def __init__(self, params):
+        self.p = params
+        super(MockCommand, self).__init__(params)
+
+    def __call__(self, *args, **kwargs):
+        self._get_all()
+        return self
+
+    @getter
+    def uid(self):
+        return self.p['uid']
+
+    @getter
+    def some_none(self):
+        return None
+
+    @getter
+    def digit(self):
+        return 1
+
+
+def test_getter_error():
+    command = MockCommand({})
+    with pytest.raises(KeyError):
+        command._get_all()
+
+
 def test_getter_handler():
-    command = MockCommand('doom')
+    command = MockCommand({'uid': 'doom'})()
     assert isinstance(command._getters['user'], getter)
-    assert command.user == {'some': 'doom'}
+    assert command.uid == 'doom'
     assert command.some_none is None
     assert command.digit == 1
 
@@ -59,6 +78,7 @@ class HandlerWithRequirements(MockClass, GetterHandler):
 
 def test_handler_with_requirements():
     m = HandlerWithRequirements('somename')
+    m._get_all()
     assert m.friend == {'i friend': {'some': 'somename'}}
 
 
@@ -82,6 +102,7 @@ def test_handler_cached_getter_execute():
             return "value2: %s" % zdigit
 
     h = TestHandler()
+    h._get_all()
     assert h.zdigit == 1
     assert h.value1 == "value1: 1"
     assert h.value2 == "value2: 1"
