@@ -23,6 +23,6 @@ def test_auth(signature):
 
 
 def test_failed_auth(signature):
-    assert signature.auth({}) == False
+    assert signature.auth({}) is False
 
 
