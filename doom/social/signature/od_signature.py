@@ -12,5 +12,5 @@ class ODSignature(BaseSignature):
                 params.get('logged_user_id', ''),
                 params.get('session_key', '')
             ],
-            params.get('auth_key')
+            params.get('auth_sig')
         )

@@ -17,7 +17,7 @@ def test_auth(signature):
             'logged_user_id': '556722096996',
             'session_key': SESSION_KEY,
             'application_key': 'CBAFLHOCEBABABABA',
-            'auth_key': '2606ad4a24f6ff93d93bd2a13b8d95b6'
+            'auth_sig': '2606ad4a24f6ff93d93bd2a13b8d95b6'
         },
     )
 
