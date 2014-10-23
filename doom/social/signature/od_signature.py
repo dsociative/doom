@@ -6,11 +6,11 @@ class ODSignature(BaseSignature):
     def key_value(self, args):
         return args
 
-    def auth(self, params, sig):
+    def auth(self, params):
         return self.check(
             [
                 params.get('logged_user_id', ''),
                 params.get('session_key', '')
             ],
-            sig
+            params.get('auth_key')
         )

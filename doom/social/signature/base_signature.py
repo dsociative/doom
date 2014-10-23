@@ -25,8 +25,6 @@ class BaseSignature(object):
         return hashlib.md5(self.string(args)).hexdigest()
 
     def check(self, params, sig):
-        print self.md5(params)
-        print sig
         return self.md5(params) == sig
 
     def try_check(self, params):
