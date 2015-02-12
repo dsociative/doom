@@ -22,5 +22,5 @@ def test_auth(signature):
     app_id = 1251235
     auth_key = signature.md5((app_id, uid))
     assert signature.auth(
-        {'auth_key': auth_key, 'app_id': app_id, 'uid': uid}
+        {'auth_key': auth_key, 'api_id': app_id, 'viewer_id': uid}
     )

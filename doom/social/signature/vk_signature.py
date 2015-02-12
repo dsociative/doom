@@ -17,7 +17,7 @@ class VKSignature(BaseSignature):
     def auth(self, param):
         return self.check(
             (
-                param.get('app_id', ''), param.get('uid', '')
+                param.get('api_id', ''), param.get('viewer_id', '')
             ),
             param.get('auth_key', '')
         )
